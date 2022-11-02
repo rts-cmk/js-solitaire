@@ -54,7 +54,7 @@ export default class Deck extends EventTarget {
     }
 
     revealTopCard() {
-        this.topCard.reveal();
+        this.topCard?.reveal();
         this.#updateElement();
     }
 
