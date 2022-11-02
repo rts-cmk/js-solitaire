@@ -81,8 +81,6 @@ waste.element.addEventListener('mousedown', () => {
         draggingContainer.style.top = waste.element.offsetTop + 'px';
         draggingContainer.style.left = waste.element.offsetLeft + 'px';
 
-        console.log(draggingContainer.style.top, draggingContainer.style.left);
-
         dropSource = waste;
 
         draggedCards = new Tableau(waste.draw()).cards;
@@ -109,6 +107,7 @@ draggingContainer.addEventListener('mouseleave', event => {
             if (container.element === event.relatedTarget || container.element.contains(event.relatedTarget)) {
                 if (container.isValidMove(draggedCards)) {
                     container.add(draggedCards);
+                    dropSource.revealTopCard();
                     draggedCards = [];
                     checkForWin();
                     return;
