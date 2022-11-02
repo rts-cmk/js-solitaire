@@ -1,0 +1,112 @@
+:root {
+    --card-width: 89px;
+    --card-height: 120px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: forestgreen;
+    text-align: center;
+    overflow: hidden;
+}
+
+.wrapper {
+    display: inline-grid;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(7, 1fr);
+
+    column-gap: 10px;
+    row-gap: 40px;
+    margin: 10px;
+}
+
+.deck { grid-column: 1; }
+.discard { grid-column: 2; }
+
+.foundation {
+    font-size: 80px;
+    line-height: var(--card-height);
+    color: darkgreen;
+    position: relative;
+}
+
+.foundation::before {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    left: 0;
+}
+
+.foundation.spades { grid-column: 4; }
+
+.foundation.spades::before { content: "♠"; }
+.foundation.hearts::before { content: "♥"; }
+.foundation.diamonds::before { content: "♦"; }
+.foundation.clubs::before { content: "♣"; }
+
+.tableau {
+    display: flex;
+    width: var(--card-width);
+    height: var(--card-height);
+    flex-direction: column;
+}
+
+.tableau .card:not(:last-child), .dragging .card:not(:last-child) {
+    height: calc(var(--card-height) / 5);
+}
+
+.card{
+    width: var(--card-width);
+    height: var(--card-height);
+    background-image: url('../images/cards.png');
+
+    background-position: 0 var(--card-height);
+
+    cursor: pointer;
+}
+
+.tableau.empty, .card.empty{
+    background-image: none;
+    border: 2px solid darkgreen;
+    border-radius: 4px;
+    cursor: default;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.stock .card.empty::after {
+    content: '◯';
+    font-size: 70px;
+    line-height: var(--card-height);
+    color: lightgreen;
+    cursor: pointer;
+}
+
+.card.hearts   { background-position-y:calc(var(--card-height) * 2); }
+.card.spades   { background-position-y: calc(var(--card-height) * 3); }
+.card.diamonds { background-position-y: calc(var(--card-height) * 4); }
+.card.clubs    { background-position-y: 0; }
+
+.card.ace      { background-position-x: var(--card-width) }
+.card.two      { background-position-x: calc(var(--card-width) * 2) }
+.card.three    { background-position-x: calc(var(--card-width) * 3) }
+.card.four     { background-position-x: calc(var(--card-width) * 4) }
+.card.five     { background-position-x: calc(var(--card-width) * 5) }
+.card.six      { background-position-x: calc(var(--card-width) * 6) }
+.card.seven    { background-position-x: calc(var(--card-width) * 7) }
+.card.eight    { background-position-x: calc(var(--card-width) * 8) }
+.card.nine     { background-position-x: calc(var(--card-width) * 9) }
+.card.ten      { background-position-x: calc(var(--card-width) * 10) }
+.card.jack     { background-position-x: calc(var(--card-width) * 11) }
+.card.queen    { background-position-x: calc(var(--card-width) * 12) }
+.card.king     { background-position-x: 0; }
+
+.dragging {
+    position: absolute;
+    z-index: 1;
+    cursor: grabbing;
+}
